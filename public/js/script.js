@@ -16,11 +16,13 @@ $(document).ready(function(){
 		console.log(position);
 		var latval=position.coords.latitude;
 		var lngval=position.coords.longitude;
+		console.log([latval,lngval]);
 		//coloco mi posicion segun lo que obtuve
 		myLatLng=new google.maps.LatLng(latval,lngval);
 		//creo el objeto mapa con la direccion correspondiente
 		createMap(myLatLng,12,true);
-		nearbySearch(myLatLng,"school");
+		//nearbySearch(myLatLng,"school");
+		searchServices(latval,lngval);
 	}
 
 	function fail(){
@@ -71,15 +73,31 @@ $(document).ready(function(){
 			});
 
 		var info= new google.maps.InfoWindow({
-			content: '<h1> Nombre </h1>'+'Descripcion '+' direccion '+'codigo postal'
+			content: '<h1>'+name+'</h1>'+'Descripcion '+' direccion '+'codigo postal'
+		});
+		marker.addListener('click',function(){
+			info.open(map,marker);
+		});
+    }
+
+	function createMarker(latlng,icn,title,description, address, city, state, zipcode){
+		var marker = new google.maps.Marker({
+			    position: latlng,
+			    map: map,
+			    icon:icn,
+			    title: title
+
+			});
+
+		var info= new google.maps.InfoWindow({
+			content: '<h2>'+title+'</h2><h3>'+description+'</h3>'+' '+city+', '+state+'<br/>'+address+' - '+zipcode
 		});
 		marker.addListener('click',function(){
 			info.open(map,marker);
 		});
 	}
-
 	//Nearby Search
-	function nearbySearch(myLatLng,type){
+	/*function nearbySearch(myLatLng,type){
 		var request = {
 		    location: myLatLng,
 		    radius: '5000',
@@ -103,6 +121,29 @@ $(document).ready(function(){
 		    }
 		  }
 	}
+	}   */
+
+	function searchServices (lat,lng){
+		$.post('http://localhost/maps/mapas/public/api/searchServices',{lat:lat,lng:lng},function(match){
+			//console.log(match);
+			$.each(match,function (i,val){
+				var glatval=val.lat;
+				var glngval=val.lng;
+				var gname=val.title;
+				var gicn='https://s33.postimg.cc/5agxxznmn/if_Map_-_Location_Solid_Style_24_2216359_1.png';
+				var gdesc=val.description;
+				var gaddress=val.address;
+				var gstate=val.state;
+				var gzipcode=val.zipcode;
+				var gcity=val.city;
+
+				var GLatLng=new google.maps.LatLng(glatval,glngval);
+				//createMarker(GLatLng,gicn,gname);
+
+				createMarker(GLatLng,gicn,gname,gdesc, gaddress,gcity, gstate, gzipcode);
+			});
+
+		});
 	}
-	 	
+		 	
 });

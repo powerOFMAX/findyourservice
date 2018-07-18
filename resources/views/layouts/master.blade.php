@@ -19,12 +19,12 @@
 			    </script>
 
 	        <script src="{{asset('js/script.js')}}"></script>
-	        <script src="{{asset('js/ajaxsearch.js')}}"></script>
 	        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
 	        </script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 	@yield('js')
+	<button>mostrar</button>
 </body>
 </html>
