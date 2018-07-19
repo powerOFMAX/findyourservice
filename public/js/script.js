@@ -1,5 +1,5 @@
 var map;
-//var myLatLng;
+var myLatLng;
 var distval;
 var latval;
 var lngval;
@@ -43,6 +43,7 @@ $(document).ready(function(){
 		// Because are not distance y set the distance in 0
 		createMap(myLatLng,false,0);
 		searchServices(myLatLng[0],myLatLng[1],0);
+		form
 	}
 
 	//Create Map - myLatLng(latitude longitude) - zm(the zoom) - withmark (if i want a mark)
@@ -166,7 +167,7 @@ $(document).ready(function(){
 
 	function searchServices (lat,lng,dist){
 		//when i get a Post at this direction it matches the DB information
-		$.post('http://localhost/maps/mapas/public/api/searchServices',{lat:lat,lng:lng},function(match){
+		$.post('http://findyourservice.com.devel/api/searchServices',{lat:lat,lng:lng},function(match){
 			$.each(match,function (i,val){
 				//Create a variable for Each field that i want
 				var glatval=val.lat;
