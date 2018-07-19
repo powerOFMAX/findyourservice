@@ -12,5 +12,8 @@ use app\location;
 */
 
 Route::get('/', function () {
+	//$distance=['Anywhere','2 Kilometer','5 Kilometer','10 Kilometer','25 Kilometer','50 Kilometer','100 Kilometer'];
+
+    //return view('front',compact('distance'));
     return view('front');
 });

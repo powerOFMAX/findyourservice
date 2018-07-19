@@ -12,9 +12,9 @@ class SearchServicesController extends Controller
     	//i access the lat and lng from the script.js
     	$lat=$request->lat;
     	$lng=$request->lng;
-
-    	$services=Service::whereBetween('lat',[$lat-0.1,$lat+0.1])->whereBetween ('lng',[$lng-0.1,$lng+0.1])->get();
-
+    	// i set a distance of location to get it
+    	//$services=Service::whereBetween('lat',[$lat-0.1,$lat+0.1])->whereBetween ('lng',[$lng-0.1,$lng+0.1])->get();
+    	$services=Service::get();
     	return $services;
     }
 }

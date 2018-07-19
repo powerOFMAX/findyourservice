@@ -1,7 +1,11 @@
 var map;
-var myLatLng;
+//var myLatLng;
+var distval;
+var latval;
+var lngval;
+
 $(document).ready(function(){
-	//llamo a la funcion creada para iniciar la geobubicacion
+	//Call this function to init the GeoLocation
 	geoLocationInit();
 
 	function geoLocationInit(){
@@ -13,31 +17,36 @@ $(document).ready(function(){
 	}
 
 	function success(position){
+		//Test Console log
 		console.log(position);
-		var latval=position.coords.latitude;
-		var lngval=position.coords.longitude;
+		//Set the latitude and longitud
+		latval=position.coords.latitude;
+		lngval=position.coords.longitude;
+		//Set the distance
+		//var dist=1;
+		distval=5;
 		console.log([latval,lngval]);
-		//coloco mi posicion segun lo que obtuve
+		//Create a array of my lat and lng
 		myLatLng=new google.maps.LatLng(latval,lngval);
-		//creo el objeto mapa con la direccion correspondiente
-		createMap(myLatLng,12,true);
+		//Create the map Object with the default zoom (12) - with Marks (of my start position)
+		createMap(myLatLng,12,true,distval);
+		//Call to search services
+		searchServices(latval,lngval,distval);
+
 		//nearbySearch(myLatLng,"school");
-		searchServices(latval,lngval);
 	}
 
 	function fail(){
 		alert("The distance ll'be Everywhere");
-		//seteo una posicion default en la mitad del mundo aproximadamente
+		// I set a default position in the middle of the world aprox
 		myLatLng=new google.maps.LatLng(23.6844179,-55.2470404);
-		//hice una marca aproposito en rosario para testear
-		var nuevamark=new google.maps.LatLng(-32.927606,-60.700304);
-		
-		createMap(myLatLng,1,false);
-		createMarker(nuevamark,'https://s33.postimg.cc/5agxxznmn/if_Map_-_Location_Solid_Style_24_2216359_1.png','Av cabildo 42134/n productos');
+		// Because are not distance y set the distance in 0
+		createMap(myLatLng,1,false,0);
+		searchServices(myLatLng[0],myLatLng[1],0);
 	}
 
 	//Create Map - myLatLng(latitude longitude) - zm(the zoom) - withmark (if i want a mark)
-	function createMap(myLatLng,zm,withmark){
+	function createMap(myLatLng,zm,withmark,dist){
 			  map = new google.maps.Map(document.getElementById('map'), {
 	          center: myLatLng,
 	          scrollwheel: false,
@@ -57,7 +66,7 @@ $(document).ready(function(){
 			      fillOpacity: 0.35,
 			      map: map,
 			      center: myLatLng,
-			      radius: 5000
+			      radius: dist*1000
 			  });
 			}
 			  
@@ -76,10 +85,12 @@ $(document).ready(function(){
 			content: '<h1>'+name+'</h1>'+'Descripcion '+' direccion '+'codigo postal'
 		});
 		marker.addListener('click',function(){
+			info.setContent()
 			info.open(map,marker);
 		});
     }
-
+    //Create the infoWindow
+	var info= new google.maps.InfoWindow;
 	function createMarker(latlng,icn,title,description, address, city, state, zipcode){
 		var marker = new google.maps.Marker({
 			    position: latlng,
@@ -88,14 +99,13 @@ $(document).ready(function(){
 			    title: title
 
 			});
-
-		var info= new google.maps.InfoWindow({
-			content: '<h2>'+title+'</h2><h3>'+description+'</h3>'+' '+city+', '+state+'<br/>'+address+' - '+zipcode
-		});
+		//Set the infoWindow content and where it has to be open
 		marker.addListener('click',function(){
+			info.setContent('<h2>'+title+'</h2><h3>'+description+'</h3>'+' '+city+', '+state+'<br/>'+address+' - '+zipcode)
 			info.open(map,marker);
 		});
 	}
+
 	//Nearby Search
 	/*function nearbySearch(myLatLng,type){
 		var request = {
@@ -123,13 +133,29 @@ $(document).ready(function(){
 	}
 	}   */
 
-	function searchServices (lat,lng){
+	$('#searchServices').submit(function(e){
+		 e.preventDefault();
+		//distval=$('#distanceDD').val();
+		if(distval==0){
+			fail();
+		}else{
+			myLatLng=new google.maps.LatLng(latval,lngval);
+			createMap(myLatLng,12,true,distval);
+			searchServices(latval,lngval,distval);
+		}
+		
+
+	});
+
+	function searchServices (lat,lng,di){
+		//when i get a Post at this direction it matches the DB information
 		$.post('http://localhost/maps/mapas/public/api/searchServices',{lat:lat,lng:lng},function(match){
 			//console.log(match);
 			$.each(match,function (i,val){
+				//Create a variable for Each field that i want
 				var glatval=val.lat;
 				var glngval=val.lng;
-				var gname=val.title;
+				var gtitle=val.title;
 				var gicn='https://s33.postimg.cc/5agxxznmn/if_Map_-_Location_Solid_Style_24_2216359_1.png';
 				var gdesc=val.description;
 				var gaddress=val.address;
@@ -137,13 +163,34 @@ $(document).ready(function(){
 				var gzipcode=val.zipcode;
 				var gcity=val.city;
 
-				var GLatLng=new google.maps.LatLng(glatval,glngval);
-				//createMarker(GLatLng,gicn,gname);
 
-				createMarker(GLatLng,gicn,gname,gdesc, gaddress,gcity, gstate, gzipcode);
+				//Create an array of the service location
+				var GLatLng=new google.maps.LatLng(glatval,glngval);
+				//I calculate the distance in km for every service and if is lower than my distance i'll create his marker
+				if((getDistance(lat,lng,glatval,glngval))<di){
+					createMarker(GLatLng,gicn,gtitle,gdesc, gaddress,gcity, gstate, gzipcode);
+				}
+				//If the distance is 0 (GeolocationFailed) It'll create all of the markers
+				if(di==0){
+					createMarker(GLatLng,gicn,gtitle,gdesc, gaddress,gcity, gstate, gzipcode);
+				}
+				console.log(di);
 			});
 
 		});
 	}
-		 	
+	//Haversine Formula to calculate lat-lng distance in kilometer
+	function getDistance(lat1, lon1, lat2, lon2){ 
+	    var R = 6371; // km  
+		var dLat = (lat2-lat1)*Math.PI/180;  
+		var dLon = (lon2-lon1)*Math.PI/180;   
+		var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+				Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) *   
+		        Math.sin(dLon/2) * Math.sin(dLon/2);   
+		var c = 2 * Math.asin(Math.sqrt(a));   
+		var d = R * c;
+		return d;
+	}
+	
+
 });
