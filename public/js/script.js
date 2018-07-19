@@ -29,7 +29,7 @@ $(document).ready(function(){
 		//Create a array of my lat and lng
 		myLatLng=new google.maps.LatLng(latval,lngval);
 		//Create the map Object with the default zoom (12) - with Marks (of my start position)
-		createMap(myLatLng,12,true,distval);
+		createMap(myLatLng,true,distval);
 		//Call to search services
 		searchServices(latval,lngval,distval);
 
@@ -41,18 +41,38 @@ $(document).ready(function(){
 		// I set a default position in the middle of the world aprox
 		myLatLng=new google.maps.LatLng(23.6844179,-55.2470404);
 		// Because are not distance y set the distance in 0
-		createMap(myLatLng,1,false,0);
+		createMap(myLatLng,false,0);
 		searchServices(myLatLng[0],myLatLng[1],0);
 	}
 
 	//Create Map - myLatLng(latitude longitude) - zm(the zoom) - withmark (if i want a mark)
-	function createMap(myLatLng,zm,withmark,dist){
+	function createMap(myLatLng,withmark,dist){
+			var zoomv=12;	
+				//Change the zoom taking the distance as reference
+					if(dist==1 || dist==2){
+						zoomv=14;
+					}
+					if(dist==5 || dist== 10){
+						zoomv=12;
+					}
+					if(dist==25 ||dist== 50){
+						zoomv=10;
+					}
+					if(dist==100){
+						zoomv=8;
+					}
+					if(	dist==0){
+						zoomv=1;
+					}
+
+			//Create the map
 			  map = new google.maps.Map(document.getElementById('map'), {
 	          center: myLatLng,
 	          scrollwheel: false,
 	          //le paso el zoom
-	          zoom: zm
+	          zoom: zoomv
 	        });
+
 			if(withmark){
 			  var marker=new google.maps.Marker({
 			  	position: myLatLng,
@@ -69,7 +89,6 @@ $(document).ready(function(){
 			      radius: dist*1000
 			  });
 			}
-			  
 	}  
 
 	//Create Marker
@@ -140,17 +159,14 @@ $(document).ready(function(){
 			fail();
 		}else{
 			myLatLng=new google.maps.LatLng(latval,lngval);
-			createMap(myLatLng,12,true,distval);
+			createMap(myLatLng,true,distval);
 			searchServices(latval,lngval,distval);
 		}
-		
-
 	});
 
-	function searchServices (lat,lng,di){
+	function searchServices (lat,lng,dist){
 		//when i get a Post at this direction it matches the DB information
 		$.post('http://localhost/maps/mapas/public/api/searchServices',{lat:lat,lng:lng},function(match){
-			//console.log(match);
 			$.each(match,function (i,val){
 				//Create a variable for Each field that i want
 				var glatval=val.lat;
@@ -163,18 +179,18 @@ $(document).ready(function(){
 				var gzipcode=val.zipcode;
 				var gcity=val.city;
 
-
 				//Create an array of the service location
 				var GLatLng=new google.maps.LatLng(glatval,glngval);
+
 				//I calculate the distance in km for every service and if is lower than my distance i'll create his marker
-				if((getDistance(lat,lng,glatval,glngval))<di){
+				if((getDistance(lat,lng,glatval,glngval))<dist){
 					createMarker(GLatLng,gicn,gtitle,gdesc, gaddress,gcity, gstate, gzipcode);
 				}
 				//If the distance is 0 (GeolocationFailed) It'll create all of the markers
-				if(di==0){
+				if(dist==0){
 					createMarker(GLatLng,gicn,gtitle,gdesc, gaddress,gcity, gstate, gzipcode);
 				}
-				console.log(di);
+				console.log(dist);
 			});
 
 		});

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container ">
-    <h2> Find Your Service</h2>
+    <div id=title> Find Your Service</div>
     	<div id="map"></div> 
     <br/>
 
