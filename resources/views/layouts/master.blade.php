@@ -17,7 +17,7 @@
 		 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 
         <link rel="stylesheet" href="{{asset('css/main.css')}}">
-
+        
 	</head>
 	<body>
 		@yield('content')
@@ -25,7 +25,6 @@
 	        	{{-- Google map API  --}}
 	            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC24xalbzXKTR_d48BUFn5Le9xeXKhRK-w&libraries=places">
 			    </script>
-
 				{{-- JQuery  --}}
 				<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 					  	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -40,11 +39,12 @@
 						integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
 						crossorigin="anonymous">
 				</script>
+				{{-- Google Autocomplete --}}
+
 				<!-- Estilo boton -->
 				
 				<!-- Select JS -->
 				 <!--script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script-->
-				 	<script src=https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js></script>
 
 				 @if (Route::has('login'))
 	                <div class="top-right links">
@@ -52,11 +52,8 @@
 	                        <a href="{{ url('/admin') }}">Dashboard</a>
 	                    @else
 	                        <a href="{{ route('login') }}">Login</a>
-
 	                    @endauth
 	                </div>
             	@endif
-
-		@yield('js')
 	</body>
 </html>

@@ -43,7 +43,6 @@ $(document).ready(function(){
 		// Because are not distance y set the distance in 0
 		createMap(myLatLng,false,0);
 		searchServices(myLatLng[0],myLatLng[1],0);
-		form
 	}
 
 	//Create Map - myLatLng(latitude longitude) - zm(the zoom) - withmark (if i want a mark)
