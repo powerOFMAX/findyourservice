@@ -15,14 +15,14 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title',300);
+            $table->string('title', 300);
             $table->text('description');
-            $table->string('address',100);
-            $table->string('city');
-            $table->string('state');
-            $table->string('zipcode');
-            $table->float('lat');
-            $table->float('lng');
+            $table->string('address', 80);
+            $table->string('city', 191);
+            $table->string('state', 191);
+            $table->string('zipcode', 191);
+            $table->float('lat', 10.6);
+            $table->float('lng', 10.6);
             $table->timestamps();
         });
     }

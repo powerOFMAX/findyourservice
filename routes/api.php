@@ -19,4 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('searchServices', 'SearchServicesController@searchServices');
 
-Route::post('autoComplete', 'AutoCompleteController@autoComplete');
+// NUEVO Cuidado con el parentesis del final
+Route::get('services', 'SearchServicesController@index');
+
+Route::get('services/{service}', 'SearchServicesController@showService');
+
+//cuidado con el parentesis del final inserto ok
+// Route::post('services', 'SearchServicesController@insertServices');
+
+Route::put('services/{service}', 'SearchServicesController@updateServices');
+
+Route::delete('services/{service}', 'SearchServicesController@deleteServices');

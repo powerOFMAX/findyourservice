@@ -1,7 +1,7 @@
 	
-	var placeSearch, autocomplete;
-	var myLatLng,latval,lngval,map;
-
+	var searchBox;
+	var myLatLng,latval,lngval;
+	var map;
     var componentForm = {
         street_number: 'short_name',
         route: 'long_name',
@@ -14,37 +14,57 @@
 geoLocationInit();
 
 	function initAutocomplete() {
-        // Create the autocomplete object, restricting the search to geographical
-        // location types.
-        autocomplete = new google.maps.places.Autocomplete((document.getElementById('autocomplete')),
-        					{types: ['geocode']});
+		// Create the marker
+		var marker= new google.maps.Marker({
+				 position:myLatLng,
+				 map:map,
+				 draggable:false
+			});
+        searchBox = new google.maps.places.SearchBox(document.getElementById('autocomplete'));
 
-        // When the user selects an address from the dropdown, populate the address
-        // fields in the form.
-        autocomplete.addListener('place_changed', fillInAddress);
-        createMarker();
-      }
+        placesChanged(marker);
+		markerChanged(marker);
+    }
 
-      function fillInAddress() {
-        // Get the place details from the autocomplete object.
-        placeSearch = autocomplete.getPlace();
-        console.log(placeSearch);
+    function placesChanged(marker) {
+      	google.maps.event.addListener(searchBox,'places_changed',function(){
+				var places = searchBox.getPlaces();
+				var bounds = new google.maps.LatLngBounds();
+				console.log(places);
 
-        for (var component in componentForm) {
-          document.getElementById(component).value = '';
-          document.getElementById(component).disabled = false;
-        }
+				bounds.extend(places[0].geometry.location);
+				marker.setPosition(places[0].geometry.location);
 
-        // Get each component of the address from the place details
-        // and fill the corresponding field on the form.
-        for (var i = 0; i < placeSearch.address_components.length; i++) {
-          var addressType = placeSearch.address_components[i].types[0];
-          if (componentForm[addressType]) {
-            var val = placeSearch.address_components[i][componentForm[addressType]];
-            document.getElementById(addressType).value = val;
-          }
-        }
-      }
+				for (var component in componentForm) {
+					document.getElementById(component).value = '';
+					document.getElementById(component).disabled = false;
+				}
+
+				// For each address component get the place information
+				for (var i = 0; i < places[0].address_components.length; i++) {
+			        var addressType = places[0].address_components[i].types[0];
+			        	// ConponentForm is the array of address Fields
+						if (componentForm[addressType]) {
+							// Put the information in the correct Field
+							var val = places[0].address_components[i][componentForm[addressType]];
+							document.getElementById(addressType).value = val;
+						}
+			    }
+
+			    // Change the zoom
+				map.fitBounds(bounds);
+				map.setZoom(17);
+		});
+    }
+
+    function markerChanged(marker){
+    	google.maps.event.addListener(marker,'position_changed',function(){
+		  latval = marker.getPosition().lat();
+		  lngvalg = marker.getPosition().lng();
+			 $('#lat').val(latval);
+			 $('#lng').val(lngval);
+		});
+    }
 
 	function geoLocationInit(){
 		if (navigator.geolocation){
@@ -56,68 +76,42 @@ geoLocationInit();
 	
 	function success(position){
 		//Set the latitude and longitud
-		latval=position.coords.latitude;
-		lngval=position.coords.longitude;
+		 latval=position.coords.latitude;
+		 lngval=position.coords.longitude;
 
 		//Create a array of my lat and lng
-		myLatLng=new google.maps.LatLng(23.6844179,-55.2470404);
-		
+		myLatLng=new google.maps.LatLng(latval,lngval);
 		createMap(myLatLng);
 		initAutocomplete();
 	}
 
 	function fail(){
 		// I set a default position in the middle of the world aprox
-		myLatLng=new google.maps.LatLng(23.6844179,-55.2470404);
-		// Because are not distance y set the distance in 0
+		latval=23.6844179;
+		lngval=-55.2470404;
+		myLatLng=new google.maps.LatLng(latval,lngval);
 		createMap(myLatLng);
+		initAutocomplete();
 	}
 	
-
-	function createMap(myLatLng){
+	// Create Map
+	function createMap(){
 		map = new google.maps.Map(document.getElementById('map-canvas'),{
 			center:myLatLng,
-			zoom:1
+			zoom:1,
+			draggable:false
 		});
 	}
 
-	function createMarker(){
-		var marker= new google.maps.Marker({
-		 position:myLatLng,
-		 map:map,
-		 draggable:false
-		});
+	$('#insert').submit(function(e){
+		e.preventDefault();
+		console.log(23);
 
-		//var searchBox = new google.maps.places.SearchBox(document.getElementById('autocomplete'));
-		var searchBox = new google.maps.places.SearchBox(document.getElementById('autocomplete'));
+		$.post('http://findyourservice.com.devel/admin/api/insert',{},function(match){
 
-		google.maps.event.addListener(searchBox,'places_changed',function(){
-			var places = searchBox.getPlaces();
-			var bounds = new google.maps.LatLngBounds();
-			var i , place;
-				for(i=0;place=places[i];i++){
-					 bounds.extend(place.geometry.location);
-					 marker.setPosition(place.geometry.location);
-				}
-			map.fitBounds(bounds);
-			map.setZoom(17);
+
 		});
 		
-	
-		google.maps.event.addListener(marker,'position_changed',function(){
-		  latval = marker.getPosition().lat();
-		  lngvalg = marker.getPosition().lng();
-		 $('#lat').val(latval);
-		 $('#lng').val(lngval);
-		});
-	}
-	
-	function positionChange(){
-		google.maps.event.addListener(marker,'position_changed',function(){
-			  latval = marker.getPosition().lat();
-			  lngvalg = marker.getPosition().lng();
-			 $('#lat').val(latval);
-			 $('#lng').val(lngval);
-		});
 		
-	}
+	});
+

@@ -23,23 +23,21 @@
                     You are logged in!, <br/> Here you can administrate your services <br/> 
                     
                     <div class="container">
-                        {{-- <div id="locationField">
-                            <input id="autocomplete" placeholder="Enter your address"
-                                   onFocus="geoLocationInit()" 
-                                   type="text">
-                        </div> --}}
-
-                        <h1>Agregar cliente</h1>
-
-                        <div class="form-group">
-                            <label form="">Titulo</label>
-                            <input type="text" class="form-control input-sm" name="title">
+                        <h2>Edit Services</h2>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label form="">Title</label>
+                                <input type="text" class="form-control"  id="title">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="description">Description</label>
+                                <textarea type="text" class="form-control" rows="2" id="description"></textarea> 
+                            </div>
                         </div>
+
                         <div class="form-group">
-                            <label form="">Búsqueda</label>
-
+                            <label form="">Search</label>
                             <input type="text" id="autocomplete" placeholder="Enter your address">
-
                             <div id="map-canvas"></div>
                         </div>
 
@@ -47,21 +45,17 @@
                             {{-- Street Direction  --}}
                             <tr>
                                 <td class="label">Street address</td>
-                                <td class="slimField">
-                                    <input class="field" id="street_number"
-                                           disabled="true">
-                                </td>
-                                <td class="wideField" colspan="2">
-                                    <input class="field" id="route"
-                                           disabled="true">
-                                </td>
+                                <td class="slimField"><input class="form-control" id="street_number"
+                                      disabled="true"></td>
+                                <td class="wideField" colspan="2"><input class="form-control" id="route"
+                                      disabled="true"></td>
                             </tr>
 
                             {{--  --}}
                             <tr>
                                 <td class="label">City</td>
                                 <td class="wideField" colspan="3">.
-                                    <input class="field" id="locality"
+                                    <input class="form-control" id="locality"
                                            disabled="true">
                                 </td>
                             </tr>
@@ -70,14 +64,14 @@
                             <tr>
                                 <td class="label">State</td>
                                 <td class="slimField">
-                                    <input class="field" id="administrative_area_level_1"
+                                    <input class="form-control" id="administrative_area_level_1"
                                            disabled="true">
                                 </td>
 
                                 {{-- Zip Code --}}
                                 <td class="label">Zip code</td>
                                 <td class="wideField">
-                                    <input class="field" id="postal_code"
+                                    <input class="form-control" id="postal_code"
                                            disabled="true">
                                 </td>
                             </tr>
@@ -86,7 +80,7 @@
                             <tr>
                                 <td class="label">Country</td>
                                 <td class="wideField" colspan="3">
-                                    <input class="field"
+                                    <input class="form-control"
                                            id="country" 
                                            disabled="true">
                                 </td>
@@ -101,8 +95,7 @@
                             <label form="">Longitu</label>
                             <input type="text" class="form-control input-sm" name="lng" id="lng">
                         </div>
-
-                            <button class="btn btn-sm btn-danger" type="submit">Guardar</button>
+                            <button class="btn btn-sm btn-danger" type="submit" id="insert" >Insert</button>
                     </div>
 
                 </div>

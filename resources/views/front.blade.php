@@ -9,7 +9,7 @@
                     
                     {!! Form::label('distanceText','Distance') !!}
 
-                	{!! Form::select('distanceDD', ['1' => '1 Kilometer',
+                	{!! Form::select('distance', ['1' => '1 Kilometer',
                     							  '2' => '2 Kilometers',
                     							  '5' => '5 Kilometers',
                     							  '10' => '10 Kilometers',
