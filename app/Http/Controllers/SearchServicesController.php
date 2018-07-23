@@ -9,7 +9,7 @@ class SearchServicesController extends Controller
 {
     public function searchServices(Request $request)
     {
-        //i access the lat and lng from the script.js
+        //i access the lat and lng
         $lat=$request->lat;
         $lng=$request->lng;
         // i set a distance of location to get it
@@ -17,21 +17,6 @@ class SearchServicesController extends Controller
         $services=Service::get();
         return $services;
     }
-
-    // public function insertServices(request $request)
-    // {
-    //     $service=new Service;
-    //     $service->title='Internet 20M';
-    //     $service->description='Internet de maxima velocidad';
-    //     $service->address='Av.Cabildo 40';
-    //     $service->city='Buenos Aires';
-    //     $service->state='Capital Federal';
-    //     $service->zipcode='1425';
-    //     $service->lat='-34.610000';
-    //     $service->lng='-50.380000';
-    //     $service->save();
-    //     return $service->id;
-    // }
 
     public function index()
     {
@@ -42,6 +27,8 @@ class SearchServicesController extends Controller
     {
         return $service;
     }
+
+    
  
     public function insertServices(Request $request)
     {
@@ -55,6 +42,7 @@ class SearchServicesController extends Controller
         'lat'=> 'required',
         'lng' => 'required'
         ]);
+        
         $service = Service::create($request->all());
  
         return response()->json($service, 201);

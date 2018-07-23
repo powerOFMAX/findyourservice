@@ -25,7 +25,7 @@ Route::get('services', 'SearchServicesController@index');
 Route::get('services/{service}', 'SearchServicesController@showService');
 
 //cuidado con el parentesis del final inserto ok
-// Route::post('services', 'SearchServicesController@insertServices');
+Route::post('services', 'SearchServicesController@insertServices');
 
 Route::put('services/{service}', 'SearchServicesController@updateServices');
 

@@ -27,8 +27,8 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Registration Routes...
-// Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-// Route::post('register', 'Auth\RegisterController@register');
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
 
 // Password Reset Routes...
 // Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
@@ -39,9 +39,20 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 //
 //  Administrator Route
 Route::get('/admin', 'AdminController@index')->name('admin');
+Route::get('/show', 'AdminController@showDelete')->name('admin');
+Route::get('/add', 'AdminController@showInsert')->name('admin');
+Route::get('/modify', 'AdminController@showUpdate')->name('admin');
+
 
 Route::get('/autocomplete', function () {
     return view('autocomplete');
 });
+
+
+// Route::get('/search', function () {
+//     return view('addservice');
+// });
+
+
 //	Return the view and is better because save the cache
 Route::view('/example','example');

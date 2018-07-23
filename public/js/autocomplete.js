@@ -34,6 +34,8 @@ geoLocationInit();
 
 				bounds.extend(places[0].geometry.location);
 				marker.setPosition(places[0].geometry.location);
+				latval=(places[0].geometry.location.lat);
+				lngval=(places[0].geometry.location.lng);
 
 				for (var component in componentForm) {
 					document.getElementById(component).value = '';
@@ -103,15 +105,42 @@ geoLocationInit();
 		});
 	}
 
+$(document).ready(function(){
+	
 	$('#insert').submit(function(e){
 		e.preventDefault();
-		console.log(23);
+		var title= $('#title').val();
+		var description= $('#description').val();
+		var address=$(' #route').val()+$(' #street_number').val();
+		var city= $('#locality').val();
+		var state= $('#administrative_area_level_1').val();
+		var zipcode= $('#postal_code').val();
+		var lat=latval;
+		var lng=lngval;
 
-		$.post('http://findyourservice.com.devel/admin/api/insert',{},function(match){
 
-
-		});
-		
-		
+		$.post('http://findyourservice.com.devel/api/services',{
+			title:title,
+			description:description,
+			address:address,
+			city:city,
+			state:state,
+			zipcode:zipcode,
+			lat:lat,
+			lng:lng},
+			
+			function(match){
+				alert('Service Added successfully');
+				for (var component in componentForm) {
+						document.getElementById(component).value = '';
+						document.getElementById(component).disabled = false;
+					}
+					$('#title').val('');
+					$('#description').val('');
+					$('autocomplete').val('');
+		 });
 	});
 
+
+
+});

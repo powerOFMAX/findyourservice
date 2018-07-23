@@ -25,4 +25,18 @@ class AdminController extends Controller
     {
         return view('admin');
     }
+    public function showInsert()
+    {
+        return view('addservice');
+    }
+    public function showUpdate()
+    {
+        return view('updateservice');
+    }
+    public function showDelete()
+    {
+        return view('deleteservice');
+    }
+
+
 }

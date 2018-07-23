@@ -32,3 +32,8 @@ html, body {
                 right: 10px;
                 top: 18px;
             }
+.list-group{
+    max-height: 450px;
+    margin-bottom: 10px;
+    overflow:scroll;
+}

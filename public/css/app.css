@@ -2,9 +2,8 @@
  * Bootstrap v4.1.2 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/ster/LICENSE)
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-
 
 :root {
   --blue: #007bff;
@@ -35,6 +34,25 @@
   --breakpoint-xl: 1200px;
   --font-family-sans-serif: "Raleway", sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  #map-canvas{
+   width:500px;
+   height:370px;
+  }
+  #autocomplete{
+  width: 450px;
+  }
+  table-wrapper-scroll-y{
+    display: block;
+    max-height: 500px; 
+    overflow-y:auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+  .list-group {
+    max-height: 450px;
+    margin-bottom: 10px;
+    overflow: scroll;
+  }
 }
 
 *,
@@ -52,13 +70,7 @@ html {
   -ms-overflow-style: scrollbar;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-#map-canvas{
-   width:500px;
-   height:370px;
-  }
-#autocomplete{
-  width: 450px;
-}
+
 @-ms-viewport {
   width: device-width;
 }
