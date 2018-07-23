@@ -1,13 +1,37 @@
-var map;
+var map,titleSearch;
 var myLatLng;
 var distval;
-var latval;
-var lngval;
+var latval,lngval;
 
 $(document).ready(function(){
 	//Call this function to init the GeoLocation
 	geoLocationInit();
 
+	$(document).on("click","#searchServices",function(e){
+		 e.preventDefault();
+			if(distval==0){
+				titleSearch=$("#searchText").val();
+				myLatLng=new google.maps.LatLng(23.6844179,-55.2470404);
+
+				createMap(myLatLng,false,0);
+				searchServices(myLatLng[0],myLatLng[1],0,titleSearch)
+			}else{
+
+				titleSearch=$("#searchText").val();
+				myLatLng=new google.maps.LatLng(latval,lngval);
+
+				createMap(myLatLng,true,distval);
+				searchServices(latval,lngval,distval,titleSearch);
+			}
+	});
+
+	$("#distance").click(function(){
+		// Change the distance at the event click
+		distval=$("#distance").val();
+	});
+
+
+	//Functions
 	function geoLocationInit(){
 		if (navigator.geolocation){
 			navigator.geolocation.getCurrentPosition(success,fail);
@@ -24,6 +48,9 @@ $(document).ready(function(){
 
 		// Set the distance
 		distval=5;
+		document.getElementById("distance").value = 5; 
+
+		titleSearch=$("#searchText").val();
 
 		//Create an array of the actual Lat and Lng
 		myLatLng=new google.maps.LatLng(latval,lngval);
@@ -32,20 +59,22 @@ $(document).ready(function(){
 		createMap(myLatLng,true,distval);
 
 		//Call to search services
-		searchServices(latval,lngval,distval);
+		searchServices(latval,lngval,distval,titleSearch);
 
-		//nearbySearch(myLatLng,"school");
 	}
 
 	function fail(){
-		alert("The distance ll'be Everywhere");
 
+		distval=0;
+
+		titleSearch=$("#searchText").val();
 		// I set a default position in the middle of the world aprox
 		myLatLng=new google.maps.LatLng(23.6844179,-55.2470404);
-
+		//Disable the distance selector
+		document.getElementById("distance").disabled = true; 
 		// Because are not Geolocation - Set the distance in 0
-		createMap(myLatLng,false,0);
-		searchServices(myLatLng[0],myLatLng[1],0);
+		createMap(myLatLng,false,distval);
+		searchServices(myLatLng[0],myLatLng[1],distval,titleSearch);
 	}
 
 	//Create Map - myLatLng(latitude longitude) - zm(the zoom) - withmark (if i want a mark)
@@ -131,31 +160,12 @@ $(document).ready(function(){
 		});
 	}
 
-	$('#searchServices').submit(function(e){
-
-		// When is submit changes the Map
-		e.preventDefault();
-			if(distval==0){
-				fail();
-			}else{
-				myLatLng=new google.maps.LatLng(latval,lngval);
-				createMap(myLatLng,true,distval);
-				searchServices(latval,lngval,distval);
-			}
-	});
-
-	$("#distance").click(function(){
-
-		// Change the distance at the event click
-		distval=$("#distance").val();
-
-	});
-
-	function searchServices (lat,lng,dist){
+	function searchServices (lat,lng,dist,title){
 		//when i get a Post at this direction it matches the DB information
-		$.post('http://findyourservice.com.devel/api/searchServices',{lat:lat,lng:lng},function(match){
+		$.get('http://findyourservice.com.devel/api/searchServices',{lat:lat,lng:lng,title:title},function(match){
 			$('#servicesResult').html('');
 			var html;
+			console.log(match);
 			$.each(match,function (i,val){
 				//Create a variable for Each field that i want
 				var glatval=val.lat;
@@ -201,5 +211,4 @@ $(document).ready(function(){
 		return d;
 	}
 	
-
 });

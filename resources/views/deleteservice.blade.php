@@ -24,7 +24,7 @@
                      Here you can see or delete services only putting the number <br/> 
                     <br/> 
                     <div class="table-wrapper-scroll-y">
-                       <table class="table table-bordered table-striped" ">
+                       <table class="table table-bordered table-striped">
                           <thead>
                             <tr>
                                   <th scope="col">#</th>

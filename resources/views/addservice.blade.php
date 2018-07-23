@@ -21,7 +21,8 @@
                     @endif
 
                     <div class="container">
-      
+
+                        {{-- Title and Description Fields --}}
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label form="">Title</label>
@@ -33,6 +34,7 @@
                             </div>
                         </div>
 
+                        {{-- Search input with Map --}}
                         <div class="form-group">
                             <label form="">Search</label>
                             <input type="text" id="autocomplete" placeholder="Enter your address" >
@@ -40,7 +42,7 @@
                         </div>
 
                         <table id="address">
-                            {{-- Street Direction  --}}
+                            {{-- Street Direction / Street_Number / Route --}}
                             <tr>
                                 <td class="label">Street address</td>
                                 <td class="slimField"><input class="form-control" id="street_number"
@@ -49,7 +51,7 @@
                                       disabled="true"></td>
                             </tr>
 
-                            {{--  --}}
+                            {{-- City Field --}}
                             <tr>
                                 <td class="label">City</td>
                                 <td class="wideField" colspan="3">.
@@ -58,7 +60,7 @@
                                 </td>
                             </tr>
 
-                            {{--  --}}
+                            {{-- State Field --}}
                             <tr>
                                 <td class="label">State</td>
                                 <td class="slimField">
@@ -66,7 +68,7 @@
                                            disabled="true">
                                 </td>
 
-                                {{-- Zip Code --}}
+                            {{-- Zip Code --}}
                                 <td class="label">Zip code</td>
                                 <td class="wideField">
                                     <input class="form-control" id="postal_code"
@@ -74,7 +76,7 @@
                                 </td>
                             </tr>
 
-                            {{--  --}}
+                            {{-- Country  --}}
                             <tr>
                                 <td class="label">Country</td>
                                 <td class="wideField" colspan="3">
@@ -83,7 +85,7 @@
                                            disabled="true">
                                 </td>
                             </tr>
-                    </table>
+                        </table>
                             
                             {{-- Create the Insert Button --}}
                             {!! Form::open(['id'=>'insert']) !!}
@@ -91,7 +93,6 @@
                             {!! Form::close() !!}
 
                     </div>
-
                 </div>
             </div>
         </div>

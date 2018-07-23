@@ -9,12 +9,11 @@ class SearchServicesController extends Controller
 {
     public function searchServices(Request $request)
     {
-        //i access the lat and lng
         $lat=$request->lat;
         $lng=$request->lng;
+        $title=$request->title;
         // i set a distance of location to get it
-        //$services=Service::whereBetween('lat',[$lat-0.1,$lat+0.1])->whereBetween ('lng',[$lng-0.1,$lng+0.1])->get();
-        $services=Service::get();
+        $services=Service::where('title','LIKE','%'.$title.'%')->get();
         return $services;
     }
 
@@ -27,8 +26,6 @@ class SearchServicesController extends Controller
     {
         return $service;
     }
-
-    
  
     public function insertServices(Request $request)
     {

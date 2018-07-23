@@ -17,16 +17,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('searchServices', 'SearchServicesController@searchServices');
+Route::get('searchServices', 'SearchServicesController@searchServices');
 
 // NUEVO Cuidado con el parentesis del final
 Route::get('services', 'SearchServicesController@index');
 
+// Get a specific Service by ID
 Route::get('services/{service}', 'SearchServicesController@showService');
 
-//cuidado con el parentesis del final inserto ok
+// Insert a service
 Route::post('services', 'SearchServicesController@insertServices');
 
+//Update a service
 Route::put('services/{service}', 'SearchServicesController@updateServices');
 
+// Delete a service
 Route::delete('services/{service}', 'SearchServicesController@deleteServices');

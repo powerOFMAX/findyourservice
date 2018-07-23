@@ -6,7 +6,7 @@ $(document).ready(function(){
 
 		$.get('http://findyourservice.com.devel/api/services',{},function(match){
 			$.each(match,function (i,val){
-				
+
 				//Create a variable for Each field that i want
 				var gid=val.id;
 				var gtitle=val.title;
@@ -50,6 +50,7 @@ $(document).ready(function(){
 
 				       // Refresh the table
 				       searchServices();
+				       $('#idDelete').val('');
 				    }
 				});
 	}
