@@ -11,8 +11,8 @@ class SearchServicesController extends Controller
     {
         $lat=$request->lat;
         $lng=$request->lng;
+
         $title=$request->title;
-        // i set a distance of location to get it
         $services=Service::where('title','LIKE','%'.$title.'%')->get();
         return $services;
     }

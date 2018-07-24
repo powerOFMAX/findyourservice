@@ -7,7 +7,6 @@
         route: 'long_name',
         locality: 'long_name',
         administrative_area_level_1: 'short_name',
-        country: 'long_name',
         postal_code: 'short_name'
       };
 
@@ -111,14 +110,16 @@ $(document).ready(function(){
 		e.preventDefault();
 		var title= $('#title').val();
 		var description= $('#description').val();
-		var address=$(' #route').val()+$(' #street_number').val();
+		var address=$('#route').val()+' - '+$('#street_number').val();
 		var city= $('#locality').val();
 		var state= $('#administrative_area_level_1').val();
 		var zipcode= $('#postal_code').val();
 		var lat=latval;
 		var lng=lngval;
+		addService(title,description,address,city,state,zipcode,lat,lng);
+	});
 
-
+	function addService(title,description,address,city,state,zipcode,lat,lng){
 		$.post('http://findyourservice.com.devel/api/services',{
 			title:title,
 			description:description,
@@ -139,8 +140,6 @@ $(document).ready(function(){
 					$('#description').val('');
 					$('autocomplete').val('');
 		 });
-	});
-
-
+	}
 
 });

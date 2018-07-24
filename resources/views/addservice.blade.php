@@ -19,7 +19,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    
                     <div class="container">
 
                         {{-- Title and Description Fields --}}
@@ -54,7 +54,7 @@
                             {{-- City Field --}}
                             <tr>
                                 <td class="label">City</td>
-                                <td class="wideField" colspan="3">.
+                                <td class="wideField" colspan="3">
                                     <input class="form-control" id="locality"
                                            disabled="true">
                                 </td>

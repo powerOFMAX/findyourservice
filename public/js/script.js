@@ -123,26 +123,7 @@ $(document).ready(function(){
 			}
 	}  
 
-	//Create Marker
-	function createMarker(latlng,icn,name){
-		var marker = new google.maps.Marker({
-			    position: latlng,
-			    map: map,
-			    icon:icn,
-			    title: name
-			});
-
-		// Create the information Window
-		var info= new google.maps.InfoWindow({
-			content: '<h4>'+name+'</h4>'+' Description '+' Direction '+' Zip Code '
-		});
-		marker.addListener('click',function(){
-			info.setContent()
-			info.open(map,marker);
-		});
-    }
-
-    //Create the infoWindow
+    //Create the infrmation Window
 	var info= new google.maps.InfoWindow;
 
 	function createMarker(latlng,icn,title,description, address, city, state, zipcode){
@@ -153,9 +134,10 @@ $(document).ready(function(){
 			    title: title
 
 			});
+
 		//Set the infoWindow content and where it has to be open
 		marker.addListener('click',function(){
-			info.setContent('<h2>'+title+'</h2><h3>'+description+'</h3>'+' '+city+', '+state+'<br/>'+address+' - '+zipcode)
+			info.setContent('<h4>'+title+'</h4><h6>'+description+'</h6>'+' '+city+', '+state+'<br/>'+address+' - '+zipcode)
 			info.open(map,marker);
 		});
 	}

@@ -17,9 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Get a Service searching by title
 Route::get('searchServices', 'SearchServicesController@searchServices');
 
-// NUEVO Cuidado con el parentesis del final
+// Get All the Services
 Route::get('services', 'SearchServicesController@index');
 
 // Get a specific Service by ID
