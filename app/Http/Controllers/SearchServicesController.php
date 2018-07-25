@@ -13,7 +13,7 @@ class SearchServicesController extends Controller
         $lng=$request->lng;
 
         $title=$request->title;
-        $services=Service::where('title','LIKE','%'.$title.'%')->get();
+        $services=Service::where('title', 'LIKE', '%'.$title.'%')->get();
         return $services;
     }
 
@@ -32,7 +32,8 @@ class SearchServicesController extends Controller
         $this->validate($request, [
         'title' => 'required | max:300',
         'description' => 'required',
-        'address' => 'max:80',
+        'route' => 'max:80',
+        'street_number' => 'max:80',
         'city' => 'max:191',
         'state' => 'max:191',
         'zipcode'=> 'max:191',
@@ -41,21 +42,18 @@ class SearchServicesController extends Controller
         ]);
         
         $service = Service::create($request->all());
- 
         return response()->json($service, 201);
     }
  
     public function updateServices(Request $request, Service $service)
     {
         $service->update($request->all());
- 
         return response()->json($service, 200);
     }
  
     public function deleteServices(Service $service)
     {
         $service->delete();
- 
         return response()->json(null, 204);
     }
 }

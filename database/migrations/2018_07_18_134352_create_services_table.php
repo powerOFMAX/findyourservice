@@ -17,7 +17,8 @@ class CreateServicesTable extends Migration
             $table->increments('id');
             $table->string('title', 300);
             $table->text('description');
-            $table->string('address', 80);
+            $table->string('route', 80);
+            $table->string('street_number', 80);
             $table->string('city', 191);
             $table->string('state', 191);
             $table->string('zipcode', 191);

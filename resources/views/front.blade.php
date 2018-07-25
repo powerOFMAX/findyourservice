@@ -10,7 +10,7 @@
                                 {{--  --}}
                                 <input type="text" class="form-control" placeholder="Search by title..." id="searchText">
                                 <button class="btn btn-default" type="button" id="searchServices">Search</button>
-                </div>
+                  </div>
             </div>
         </div><br/>
             <label for="distance">Distance </label>

@@ -30,7 +30,8 @@
                                   <th scope="col">#</th>
                                   <th scope="col">Title</th>
                                   <th scope="col">Description</th>
-                                  <th scope="col">Address</th>
+                                  <th scope="col">Route</th>
+                                  <th scope="col">Street Number</th>
                                   <th scope="col">City</th>
                                   <th scope="col">State</th>
                                   <th scope="col">Zip Code</th>
