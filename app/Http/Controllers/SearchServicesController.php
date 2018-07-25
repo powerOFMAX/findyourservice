@@ -9,12 +9,17 @@ class SearchServicesController extends Controller
 {
     public function searchServices(Request $request)
     {
-        $lat=$request->lat;
-        $lng=$request->lng;
-
-        $title=$request->title;
-        $services=Service::where('title', 'LIKE', '%'.$title.'%')->get();
-        return $services;
+        $lat = $request->lat;
+        $lng = $request->lng;
+        $title = $request ->title;
+        $dist = $request->dist;
+        
+        //If the Distance es Anywhere
+        if ($dist==0) {
+            return $this->searchText($title);
+        } else {
+            return $this->haversineFormula($lat, $lng, $dist, $title);
+        }
     }
 
     public function index()
@@ -40,7 +45,7 @@ class SearchServicesController extends Controller
         'lat'=> 'required',
         'lng' => 'required'
         ]);
-        
+            
         $service = Service::create($request->all());
         return response()->json($service, 201);
     }
@@ -55,5 +60,28 @@ class SearchServicesController extends Controller
     {
         $service->delete();
         return response()->json(null, 204);
+    }
+
+    //  Search Text Query
+    private function searchText($title)
+    {
+        $services=Service::where('title', 'LIKE', '%'.$title.'%')->get();
+        return $services;
+    }
+
+    // Haversine Formula to calculate lat-lng distance in kilometers
+    private function haversineFormula($lat, $lng, $dist, $title)
+    {
+        $services = Service::select('services.*')
+        ->selectRaw('( 6371 * acos( cos( radians(?) ) *
+                               cos( radians( lat ) )
+                               * cos( radians( lng ) - radians(?)
+                               ) + sin( radians(?) ) *
+                               sin( radians( lat ) ) )
+                             ) AS distance', [$lat, $lng, $lat])
+        ->havingRaw("distance < ?", [$dist])
+        ->where('title', 'LIKE', '%'.$title.'%')
+        ->get();
+        return $services;
     }
 }

@@ -75,36 +75,43 @@ $(document).ready(function() {
         searchServices(myLatLng[0], myLatLng[1], distval, titleSearch);
     }
 
-    //Create Map - myLatLng(latitude longitude) - zm(the zoom) - withmark (if i want a mark)
-    function createMap(myLatLng, withmark, dist) {
-        var zoomv = 12;
-        //Change the zoom taking the distance as reference
+    //Change the zoom taking the distance as reference
+    function selectZoom(dist) {
+        var zoom=12;
         if (dist == 1 || dist == 2) {
-            zoomv = 14;
+            zoom = 14;
         }
         if (dist == 5 || dist == 10) {
-            zoomv = 12;
+            zoom = 12;
         }
         if (dist == 25 || dist == 50) {
-            zoomv = 10;
+            zoom = 10;
         }
         if (dist == 100) {
-            zoomv = 8;
+            zoom = 8;
         }
         if (dist == 0) {
-            zoomv = 1;
+            zoom = 1;
         }
+        return zoom;
+    }
 
-        //Create the map
+    //Create Map
+    function createMap(myLatLng, withmark, dist) {
+        var zoom=selectZoom(dist);
         map = new google.maps.Map(document.getElementById('map'), {
             center: myLatLng,
             scrollwheel: false,
-            //le paso el zoom
-            zoom: zoomv
+            zoom: zoom
         });
-
         if (withmark) {
-            var marker = new google.maps.Marker({
+            createMainMarker(myLatLng,dist);
+        }
+    }
+
+    // Create Marker for Geolocation Position
+    function createMainMarker(myLatLng, dist){
+        var marker = new google.maps.Marker({
                 position: myLatLng,
                 map: map,
             })
@@ -118,12 +125,12 @@ $(document).ready(function() {
                 center: myLatLng,
                 radius: dist * 1000
             });
-        }
     }
 
     //Create the infrmation Window
     var info = new google.maps.InfoWindow;
 
+    //  Create Marker
     function createMarker(latlng, icn, title, description, route, street_number, city, state, zipcode) {
         var marker = new google.maps.Marker({
             position: latlng,
@@ -131,8 +138,11 @@ $(document).ready(function() {
             icon: icn,
             title: title
         });
+        createInfoWindow(marker, title, description, city, state, route, street_number, zipcode);
+    }
 
-        //Set the infoWindow content and where it has to be open
+    //Set the infoWindow content and where it has to be open
+    function createInfoWindow(marker, title, description, city, state, route, street_number, zipcode) {
         marker.addListener('click', function() {
             info.setContent('<h4>' + title + '</h4><h6>' + description + '</h6>' + ' ' + city + ', ' + state + '<br/>' + route + street_number + zipcode)
             info.open(map, marker);
@@ -140,11 +150,11 @@ $(document).ready(function() {
     }
 
     function searchServices(lat, lng, dist, title) {
-        //when i get a Post at this direction it matches the DB information
         $.get('http://findyourservice.com.devel/api/searchServices', {
             lat: lat,
             lng: lng,
-            title: title
+            title: title,
+            dist: dist
         }, function(match) {
             $('#servicesResult').html('');
             var html;
@@ -165,33 +175,11 @@ $(document).ready(function() {
                 //Create an array of the service location
                 var GLatLng = new google.maps.LatLng(glatval, glngval);
 
-                //I calculate the distance in km for every service and if is lower than my distance i'll create his marker
-                if ((getDistance(lat, lng, glatval, glngval)) < dist) {
-                    createMarker(GLatLng, gicn, gtitle, gdesc, groute, gstreet_number, gcity, gstate, gzipcode);
-                    html = '<li class="list-group-item">' + gtitle + '</li>';
-                    $('#servicesResult').append(html);
-                }
-                //If the distance is 0 (GeolocationFailed) It'll create all of the markers
-                if (dist == 0) {
-                    createMarker(GLatLng, gicn, gtitle, gdesc, groute, gstreet_number, gcity, gstate, gzipcode);
-                    html = '<li class="list-group-item">' + gtitle + '</li>';
-                    $('#servicesResult').append(html);
-                }
-
+                //Create marker for each service
+                createMarker(GLatLng, gicn, gtitle, gdesc, groute, gstreet_number, gcity, gstate, gzipcode);
+                html = '<li class="list-group-item">' + gtitle + '</li>';
+                $('#servicesResult').append(html);
             });
-
         });
-    }
-    //Haversine Formula to calculate lat-lng distance in kilometer
-    function getDistance(lat1, lon1, lat2, lon2) {
-        var R = 6371; // km  
-        var dLat = (lat2 - lat1) * Math.PI / 180;
-        var dLon = (lon2 - lon1) * Math.PI / 180;
-        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-            Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        var c = 2 * Math.asin(Math.sqrt(a));
-        var d = R * c;
-        return d;
     }
 });
