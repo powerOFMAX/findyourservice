@@ -14,7 +14,7 @@ class SearchServicesController extends Controller
         $title = $request ->title;
         $dist = $request->dist;
         
-        //If the Distance es Anywhere
+        //If the Distance is Anywhere
         if ($dist==0) {
             return $this->searchText($title);
         } else {
@@ -24,7 +24,7 @@ class SearchServicesController extends Controller
 
     public function index()
     {
-        return Service::all();
+        return datatables(Service::all())->toJson();
     }
 
     public function showService(Service $service)

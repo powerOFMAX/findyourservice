@@ -1,15 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-                        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-                        crossorigin="anonymous">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYG5g2aJ9TjMlbYk7E_VuFYKSvHC1Ee6Y&libraries=places" type="text/javascript"></script>
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header"> Show All Services </div>
 
@@ -23,23 +20,25 @@
                         <h3>All the services</h3> 
                      Here you can see or delete services only putting the number <br/> 
                     <br/> 
-                    <div class="table-wrapper-scroll-y">
-                       <table class="table table-bordered table-striped">
-                          <thead>
-                            <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">Title</th>
-                                  <th scope="col">Description</th>
-                                  <th scope="col">Route</th>
-                                  <th scope="col">Street Number</th>
-                                  <th scope="col">City</th>
-                                  <th scope="col">State</th>
-                                  <th scope="col">Zip Code</th>
-                            </tr>
-                          </thead>
-                          <tbody id="servicesResult">
-                            {{-- Here the table is inserted when i get the information --}}
-                          </tbody>
+
+                    <div>
+                      <table class="table" id="tableServices">
+                            <thead>
+                              <tr>  
+                                    <th scope="col">Default</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Route</th>
+                                    <th scope="col">Street Number</th>
+                                    <th scope="col">City</th>
+                                    <th scope="col">State</th>
+                                    <th scope="col">Zip Code</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {{-- Here the table Populated --}}
+                            </tbody>
                       </table>
                     </div>    
 
@@ -61,8 +60,8 @@
         </div>
     </div>
 </div>
-
-    <script src="{{mix('js/app.js')}}" ></script>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    {{-- <script src="{{mix('js/app.js')}}" ></script> --}}
     <script src="{{asset('js/allservices.js')}}" ></script>
 
 @endsection

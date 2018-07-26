@@ -7,7 +7,6 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>{{ config('app.name', 'FindYourService') }}</title>
 
     <!-- Fonts -->
@@ -17,6 +16,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+    <link href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" > 
 
 </head>
 <body>
@@ -89,5 +89,6 @@
             @yield('content')
         </main>
     </div>
+
 </body>
 </html>
