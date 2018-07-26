@@ -10,45 +10,63 @@ $(document).ready(function() {
                 type: 'GET'
             },
             columns: [{
-                    defaultContent: "<tr><button type='button' class='Edit btn btn-default-xs' title='Edit'><i class='fa fa-pencil-square-o'></i></button></tr>",
-                    searchable: false,
-                    sortable: false
-                },
-                { data: 'id' },
-                { data: 'title' },
-                { data: 'description' },
-                { data: 'route' },
-                { data: 'street_number' },
-                { data: 'city' },
-                { data: 'state' },
-                { data: 'zipcode' }
-            ]
+                data: 'id'
+            }, {
+                data: 'title'
+            }, {
+                data: 'description'
+            }, {
+                data: 'route'
+            }, {
+                data: 'street_number'
+            }, {
+                data: 'city'
+            }, {
+                data: 'state'
+            }, {
+                data: 'zipcode'
+            }, {
+                data: 'action',
+                name: "action",
+                searchable: false,
+                sortable: false
+            }]
         });
     }
 
-    // Submit Action From Delete Button
-    $('#delete').submit(function(e) {
+    // Delete a record
+    $('#tableServices').on('click', 'a.editor_remove', function(e) {
         e.preventDefault();
-        var deleteID = $('#idDelete').val();
-        console.log(deleteID);
-        deleteServices(deleteID);
+
+        editor.remove($(this).closest('tr'), {
+            title: 'Delete record',
+            message: 'Are you sure you wish to remove this record?',
+            buttons: 'Delete'
+        });
+    });
+
+    // Delete Button from Table On Click Event
+    $(document).on('click', '.del', function(e) {
+        e.preventDefault();
+        var id = $(this).attr("id");
+        deleteServices(id);
     });
 
     //Delete Services 
     function deleteServices(id) {
-        var id = id;
-        //  Call the DELETE Method
-        $.ajax({
-            url: 'http://findyourservice.com.devel/api/services/' + id,
-            type: 'DELETE',
-            success: function(result) {
-                alert('Service Deleted successfully');
-
-                // Refresh the table
-                searchServices();
-                $('#idDelete').val('');
-            }
-        });
+        if (confirm("Are you sure you want to remove this?")) {
+            $.ajax({
+                url: 'http://findyourservice.com.devel/api/services/' + id,
+                type: 'DELETE',
+                success: function() {
+                    $('#alert_message').html('<div class="alert alert-success">' + 'Service Deleted Successfully' + '</div>');
+                    $('#tableServices').DataTable().destroy();
+                    searchServices();
+                }
+            });
+            setInterval(function() {
+                $('#alert_message').html('');
+            }, 5000);
+        }
     }
-
 });

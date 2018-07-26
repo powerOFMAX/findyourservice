@@ -4,6 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Service;
 use Illuminate\Http\Request;
+use yajra\Datatables\Datatables;
+use App\DataTables\UsersDataTable;
+
+use DataTables\Editor;
+use DataTables\Editor\Field;
+use DataTables\Editor\Format;
+use DataTables\Editor\Mjoin;
+use DataTables\Editor\Options;
+use DataTables\Editor\Upload;
+use DataTables\Editor\Validate;
+use DataTables\Editor\ValidateOptions;
 
 class SearchServicesController extends Controller
 {
@@ -24,7 +35,16 @@ class SearchServicesController extends Controller
 
     public function index()
     {
-        return datatables(Service::all())->toJson();
+        // return datatables(Service::all())->toJson();
+         $services = Service::select(['id', 'title', 'description', 'route', 'street_number', 'city', 'state','zipcode']);
+
+        return Datatables::of($services)
+            ->addColumn('action', function ($services) {
+                return '<a href="#edit-'.$services->id.'" class="btn btn-xs btn-primary edit">Edit</a>
+                        <a href="" class="btn btn-danger del" id="'.$services->id.'"">Delete</a>';
+            })
+            ->editColumn('id', 'ID: {{$id}}')
+            ->make(true);
     }
 
     public function showService(Service $service)

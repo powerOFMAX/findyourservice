@@ -9,7 +9,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Get a Service searching by title
 Route::get('searchServices', 'SearchServicesController@searchServices');
 
-// Get All the Services
+// Get All the Services for Table
 Route::get('services', 'SearchServicesController@index');
 
 // Get a specific Service by ID
