@@ -1,10 +1,13 @@
 #map-canvas{
-     width:500px;
-     height:370px;
-    }
+     width:400px;
+     height:300px;
+/*    position: auto;*/
+     /*left:15%;*/*/
+}
+  
 
 #autocomplete{
-    width: 450px;
+    width: 400px;
     }
 
 /*.table-wrapper-scroll-y{

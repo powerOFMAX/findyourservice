@@ -34,17 +34,6 @@ $(document).ready(function() {
         });
     }
 
-    // Delete a record
-    $('#tableServices').on('click', 'a.editor_remove', function(e) {
-        e.preventDefault();
-
-        editor.remove($(this).closest('tr'), {
-            title: 'Delete record',
-            message: 'Are you sure you wish to remove this record?',
-            buttons: 'Delete'
-        });
-    });
-
     // Delete Button from Table On Click Event
     $(document).on('click', '.del', function(e) {
         e.preventDefault();

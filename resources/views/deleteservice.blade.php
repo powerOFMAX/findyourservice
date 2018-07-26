@@ -38,7 +38,7 @@
                               </tr>
                             </thead>
                             <tbody>
-                              {{-- Here the table Populated --}}
+                              {{-- Here the table is Populated --}}
                             </tbody>
                       </table>
                     </div>    

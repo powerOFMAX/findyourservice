@@ -57,16 +57,12 @@
                                         {{ __('Home') }}
                                     </a>
 
-                                    <a class="dropdown-item" href="show">
+                                    <a class="dropdown-item" href="http://findyourservice.com.devel/show">
                                         {{ __('Show Services') }}
                                     </a>
-                                    <a class="dropdown-item" href="add">
+                                    <a class="dropdown-item" href="http://findyourservice.com.devel/add">
                                         {{ __('Add Services') }}
                                     </a>
-                                    <a class="dropdown-item" href="modify">
-                                        {{ __('Modify Services') }}
-                                    </a>
-                                    
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

@@ -53,23 +53,12 @@ function placesChanged() {
 
 $(document).ready(function() {
 
-    // Get Service Button 
-    $('#getService').submit(function(e) {
-        e.preventDefault();
-
-        // Get the selected service
-        idService = $('#idGet').val();
-        getService(idService);
-    });
+    idService = $('.serviceNumber').attr("id");
+    getService(idService);
 
     // Get Service Button 
-    $('#update').submit(function(e) {
+    $(document).on("click", "#update", function(e) {
         e.preventDefault();
-
-        // Get the selected service
-        // idService= $('#idGet').val();
-        // getService(idService);
-
         var title = $('#title').val();
         var description = $('#description').val();
         var route = $('#route').val();
@@ -79,13 +68,11 @@ $(document).ready(function() {
         var zipcode = $('#postal_code').val();
         var lat = latval;
         var lng = lngval;
-
         updateService(idService, title, description, route, street_number, city, state, zipcode, lat, lng);
     });
 
+    //  Update Method
     function updateService(id, title, description, route, street_number, city, state, zipcode, lat, lng) {
-        // var id=id;
-        //	Call the DELETE method
         $.ajax({
             url: 'http://findyourservice.com.devel/api/services/' + id,
             type: 'PUT',
@@ -101,11 +88,17 @@ $(document).ready(function() {
                 lng: lng
             },
             success: function(result) {
-                alert('Service Updated successfully');
-
-                // Refresh the table
+                $('#alert_message').html('<div class="alert alert-success">' + 'Service Updated Succesfully' + '</div>');
             }
         });
+        //  Make the Alert Message
+        setInterval(function() {
+            $('#alert_message').html('');
+        }, 1500);
+        //  Will redirect to the Show Page
+        setTimeout(function() {
+            window.location.href = "http://findyourservice.com.devel/show";
+        }, 2000);
 
     }
 

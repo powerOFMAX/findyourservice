@@ -29,14 +29,13 @@ class AdminController extends Controller
     {
         return view('addservice');
     }
-    public function showUpdate()
+    public function showUpdate($id)
     {
-        return view('updateservice');
+        return view('updateservice')
+                    ->with('id', $id);
     }
     public function showDelete()
     {
         return view('deleteservice');
     }
-
-
 }

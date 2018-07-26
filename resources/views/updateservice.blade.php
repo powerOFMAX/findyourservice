@@ -11,7 +11,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"> Modify a service </div>
+                <div class="card-header">  <h4>Modify a Service</h4> </div>
                     <div class="card-body">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
@@ -19,22 +19,12 @@
                             </div>
                         @endif
 
-                        <h3>Modify the services</h3> 
-                         Here you can update or modify services, only putting the number and then cliking "Update". <br/>
+                        <div class=serviceNumber id="{{$id}}">
+                            <h5> Now you are editing the service number: {{$id}}</h5> <br/>
+                        </div>
 
-                         {{-- Service Getter --}}
-                         <label for="idGet">Enter de # Number of the service to update</label>
-                         <div class="form-row">
-                            <div>
-                                {!! Form::open(['id'=>'getService']) !!}
-                                {!! Form::submit('Get Service',['class'=>'btn btn-info']) !!}
-                                {!! Form::close() !!} 
-                            </div>
-                            <div>
-                                <input type="text" class="form-control"  id="idGet">
-                            </div>
-                        </div><br/>     
-
+                        {{-- Here Message is show --}}
+                        <div id="alert_message"></div>     
                         <div class="container">
                             {{-- Title and Description Fields --}}
                             <div class="form-row">
@@ -95,9 +85,10 @@
 
                                 {{-- Create the Insert Button --}}
                                 <br/>
-                                {!! Form::open(['id'=>'update']) !!}
-                                {!! Form::submit('Update',['class'=>'btn btn-success col-sm-2']) !!}
-                                {!! Form::close() !!}
+
+                                <div class="col-sm-2" >
+                                    <button class="btn btn-success btn-block" type="button" id="update">Update</button>
+                                </div>
 
                         </div>
                     </div>

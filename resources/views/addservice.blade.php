@@ -9,9 +9,9 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
-                <div class="card-header"> Add a New Service  ( Make sure that you fill all the fields ) </div>
+                <div class="card-header"> <h4>Add a New Service</h4></div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -19,79 +19,89 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    
+
                     <div class="container">
+                        {{-- Alert Message --}}
+                        <div id="alert_message"></div>
 
-                        {{-- Title and Description Fields --}}
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label form="">Title</label>
-                                <input type="text" class="form-control"  id="title" >
+                        <div class="row">
+                            <div class="col-sm">
+                                {{-- Title Field --}}
+                                <div class="form-group">
+                                    <label form="">Title</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control"  id="title" >
+                                    </div>
+                                </div>
+                                {{-- Description Field --}}
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <div class="form-group">
+                                         <textarea type="text" class="form-control" rows="2" id="description"></textarea> 
+                                    </div>
+                                </div>
+                                {{-- Table --}}
+                                <table id="address" class="form-group">
+                                    {{-- Street Direction / Street_Number / Route --}}
+                                    <tr>
+                                        <td class="label">Street address</td>
+                                        <td class="slimField">
+                                            <div class="form-group">
+                                                <input class="form-control" id="street_number"
+                                                    disabled="true">
+                                            </div>
+                                        </td>
+                                        <td class="wideField" colspan="2">
+                                            <div class="form-group">
+                                                <input class="form-control" id="route"
+                                                        disabled="true">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {{-- City Field --}}
+                                    <tr>
+                                        <td class="label">City</td>
+                                        <td class="wideField" colspan="3">
+                                            <div class="form-group">
+                                                <input class="form-control" id="locality"
+                                                   disabled="true">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {{-- State Field --}}
+                                    <tr>
+                                        <td class="label">State</td>
+                                        <td class="slimField">
+                                            <div class="form-group">
+                                                <input class="form-control" id="administrative_area_level_1"
+                                                   disabled="true">
+                                            </div>
+                                        </td>
+                                    {{-- Zip Code --}}
+                                        <td class="label"> Zip code</td>
+                                        <td class="wideField">
+                                            <div class="form-group">
+                                                <input class="form-control" id="postal_code"
+                                                       disabled="true">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="description">Description</label>
-                                <textarea type="text" class="form-control" rows="2" id="description"></textarea> 
+                            {{-- Search input with Map --}}
+                            <div class="col-sm" ><br/>
+                                <div id="map-canvas"></div><br/>
+                                <div class="form-group">
+                                    <input type="text" id="autocomplete" placeholder="Search a location">
+                                </div>
                             </div>
                         </div>
-
-                        {{-- Search input with Map --}}
-                        <div class="form-group">
-                            <label form="">Search</label>
-                            <input type="text" id="autocomplete" placeholder="Enter your address" >
-                            <div id="map-canvas"></div>
-                        </div>
-
-                        <table id="address">
-                            {{-- Street Direction / Street_Number / Route --}}
-                            <tr>
-                                <td class="label">Street address</td>
-                                <td class="slimField"><input class="form-control" id="street_number"
-                                      disabled="true"></td>
-                                <td class="wideField" colspan="2"><input class="form-control" id="route"
-                                      disabled="true"></td>
-                            </tr>
-
-                            {{-- City Field --}}
-                            <tr>
-                                <td class="label">City</td>
-                                <td class="wideField" colspan="3">
-                                    <input class="form-control" id="locality"
-                                           disabled="true">
-                                </td>
-                            </tr>
-
-                            {{-- State Field --}}
-                            <tr>
-                                <td class="label">State</td>
-                                <td class="slimField">
-                                    <input class="form-control" id="administrative_area_level_1"
-                                           disabled="true">
-                                </td>
-
-                            {{-- Zip Code --}}
-                                <td class="label">Zip code</td>
-                                <td class="wideField">
-                                    <input class="form-control" id="postal_code"
-                                           disabled="true">
-                                </td>
-                            </tr>
-
-                            {{-- Country  --}}
-                            <tr>
-                                <td class="label">Country</td>
-                                <td class="wideField" colspan="3">
-                                    <input class="form-control"
-                                           id="country" 
-                                           disabled="true">
-                                </td>
-                            </tr>
-                        </table>
-                            
+                        <div class="row">
                             {{-- Create the Insert Button --}}
-                            {!! Form::open(['id'=>'insert']) !!}
-                            {!! Form::submit('Insert',['class'=>'btn btn-danger']) !!}
-                            {!! Form::close() !!}
-
+                            <div class="col-sm-2" >
+                                <button class="btn btn-danger btn-block" type="button" id="insert">Insert</button>
+                            </div>
+                        </div>       
                     </div>
                 </div>
             </div>

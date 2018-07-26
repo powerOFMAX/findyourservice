@@ -7,10 +7,9 @@
         <div class="row" id="searchBox">
             <div class="col-lg-6">
                 <div class="input-group"> 
-                                {{--  --}}
-                                <input type="text" class="form-control" placeholder="Search by title..." id="searchText">
-                                <button class="btn btn-default" type="button" id="searchServices">Search</button>
-                  </div>
+                    <input type="text" class="form-control" placeholder="Search by title..." id="searchText">
+                    <button class="btn btn-default" type="button" id="searchServices">Search</button>
+                </div>
             </div>
         </div><br/>
             <label for="distance">Distance </label>

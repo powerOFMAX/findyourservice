@@ -40,7 +40,7 @@ class SearchServicesController extends Controller
 
         return Datatables::of($services)
             ->addColumn('action', function ($services) {
-                return '<a href="#edit-'.$services->id.'" class="btn btn-xs btn-primary edit">Edit</a>
+                return '<a href="modify/'.$services->id.'" class="btn btn-xs btn-primary edit">Edit</a>
                         <a href="" class="btn btn-danger del" id="'.$services->id.'"">Delete</a>';
             })
             ->editColumn('id', 'ID: {{$id}}')

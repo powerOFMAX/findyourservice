@@ -105,8 +105,8 @@ function createMap() {
 
 $(document).ready(function() {
 
-    //Insert Submit Action  
-    $('#insert').submit(function(e) {
+    //Insert Submit Action 
+    $(document).on("click", "#insert", function(e) {
         e.preventDefault();
         var title = $('#title').val();
         var description = $('#description').val();
@@ -117,7 +117,7 @@ $(document).ready(function() {
         var zipcode = $('#postal_code').val();
         var lat = latval;
         var lng = lngval;
-        addService(title, description, route, street_number, city, state, zipcode, lat, lng);
+        addService(title, description, route, street_number, city, state, zipcode, lat, lng);   
     });
 
     function addService(title, description, route, street_number, city, state, zipcode, lat, lng) {
@@ -132,9 +132,8 @@ $(document).ready(function() {
                 lat: lat,
                 lng: lng
             },
-
             function(match) {
-                alert('Service Added successfully');
+                $('#alert_message').html('<div class="alert alert-success">' + 'Service Added Succesfully' + '</div>');
                 for (var component in componentForm) {
                     document.getElementById(component).value = '';
                     document.getElementById(component).disabled = false;
@@ -143,6 +142,9 @@ $(document).ready(function() {
                 $('#description').val('');
                 $('autocomplete').val('');
             });
+
+
+
     }
 
 });
