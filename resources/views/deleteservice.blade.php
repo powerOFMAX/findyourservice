@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{mix('js/app.js')}}" ></script>
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYG5g2aJ9TjMlbYk7E_VuFYKSvHC1Ee6Y&libraries=places" type="text/javascript"></script>
 
 <div class="container">
@@ -47,8 +48,6 @@
         </div>
     </div>
 </div>
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-{{--     <script src="{{mix('js/app.js')}}" ></script> --}}
-    <script src="{{asset('js/allservices.js')}}" ></script>
 
+    <script src="{{asset('js/allservices.js')}}" ></script>
 @endsection
