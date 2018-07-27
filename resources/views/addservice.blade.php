@@ -30,14 +30,14 @@
                                 <div class="form-group">
                                     <label form="">Title</label>
                                     <div class="form-group">
-                                        <input type="text" class="form-control"  id="title" >
+                                        <input type="text" class="form-control"  id="title"  placeholder="Enter a Title..">
                                     </div>
                                 </div>
                                 {{-- Description Field --}}
                                 <div class="form-group">
                                     <label for="description">Description</label>
                                     <div class="form-group">
-                                         <textarea type="text" class="form-control" rows="2" id="description"></textarea> 
+                                         <textarea type="text" class="form-control" rows="2" id="description"  placeholder="Enter a Description.."></textarea> 
                                     </div>
                                 </div>
                                 {{-- Table --}}
@@ -48,13 +48,15 @@
                                         <td class="slimField">
                                             <div class="form-group">
                                                 <input class="form-control" id="street_number"
-                                                    disabled="true">
+                                                    disabled="true"
+                                                     placeholder="Street Number..">
                                             </div>
                                         </td>
                                         <td class="wideField" colspan="2">
                                             <div class="form-group">
                                                 <input class="form-control" id="route"
-                                                        disabled="true">
+                                                        disabled="true"
+                                                        placeholder="Enter the Route..">
                                             </div>
                                         </td>
                                     </tr>
@@ -64,7 +66,8 @@
                                         <td class="wideField" colspan="3">
                                             <div class="form-group">
                                                 <input class="form-control" id="locality"
-                                                   disabled="true">
+                                                   disabled="true"
+                                                   placeholder="Enter the City..">
                                             </div>
                                         </td>
                                     </tr>
@@ -74,7 +77,8 @@
                                         <td class="slimField">
                                             <div class="form-group">
                                                 <input class="form-control" id="administrative_area_level_1"
-                                                   disabled="true">
+                                                   disabled="true"
+                                                   placeholder="Enter the State..">
                                             </div>
                                         </td>
                                     {{-- Zip Code --}}
@@ -82,7 +86,8 @@
                                         <td class="wideField">
                                             <div class="form-group">
                                                 <input class="form-control" id="postal_code"
-                                                       disabled="true">
+                                                       disabled="true"
+                                                       placeholder="Enter the Zip Code..">
                                             </div>
                                         </td>
                                     </tr>

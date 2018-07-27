@@ -26,15 +26,15 @@
                       <table class="table" id="tableServices">
                             <thead>
                               <tr>  
-                                    <th scope="col">#</th>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Route</th>
-                                    <th scope="col">Street Number</th>
-                                    <th scope="col">City</th>
-                                    <th scope="col">State</th>
-                                    <th scope="col">Zip Code</th>
-                                    <th scope="col">Action</th>
+                                <th scope="col">#</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Route</th>
+                                <th scope="col">Street Number</th>
+                                <th scope="col">City</th>
+                                <th scope="col">State</th>
+                                <th scope="col">Zip Code</th>
+                                <th scope="col">Action</th>
                               </tr>
                             </thead>
                             <tbody>
