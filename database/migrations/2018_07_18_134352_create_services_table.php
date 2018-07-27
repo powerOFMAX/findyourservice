@@ -17,13 +17,13 @@ class CreateServicesTable extends Migration
             $table->increments('id');
             $table->string('title', 300);
             $table->text('description');
-            $table->string('route', 80);
-            $table->string('street_number', 80);
-            $table->string('city', 191);
-            $table->string('state', 191);
-            $table->string('zipcode', 191);
-            $table->float('lat', 10.6);
-            $table->float('lng', 10.6);
+            $table->string('route', 80)->nullable();
+            $table->string('street_number', 80)->nullable();
+            $table->string('city', 191)->nullable();
+            $table->string('state', 191)->nullable();
+            $table->string('zipcode', 191)->nullable();
+            $table->double('lat', 10, 6);
+            $table->double('lng', 10, 6);
             $table->timestamps();
         });
     }
