@@ -9,7 +9,7 @@
 		<!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
-		<!-- ECSS Style -->
+		<!-- CSS Style -->
 		 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 
         <link rel="stylesheet" href="{{asset('css/main.css')}}">
@@ -40,7 +40,7 @@
 				 @if (Route::has('login'))
 	                <div class="top-right links">
 	                    @auth
-	                        <a href="{{ url('/admin') }}">Dashboard</a>
+	                        <a href="{{ url('/show') }}">Dashboard</a>
 	                    @else
 	                        <a href="{{ route('login') }}">Login</a>
 	                        <a href="{{ route('register') }}">Register</a>

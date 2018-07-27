@@ -42,8 +42,9 @@
           <div class="col-sm-3">
               <div>
                   <h3>Services Near</h3> <br/>
-                  <ul class="list-group" id="servicesResult">
-                  </ul> 
+                  {{-- Select Of Services --}}
+                  <select class="custom-select" size="15" id="servicesResult">
+                  </select>
               </div>
           </div>
           {{--  Map  --}}
