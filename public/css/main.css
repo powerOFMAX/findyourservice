@@ -4,7 +4,6 @@
 }
 #title{
 	font-size: 50px;
-
 }
 #map{
 	height: 500px;
@@ -14,6 +13,14 @@
 .container{
  	text-align: center;
 }
+#distLabel{
+    font-size: 18px;
+}
+
+#servicesNear{
+    font-family: sans-serif;
+}
+
 html, body {
                 background-color: #fff;
                 color: #636b6f;

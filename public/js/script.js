@@ -26,7 +26,9 @@ $(document).ready(function() {
     });
 
     // Change the distance at the event click
-    $("#distance").click(function() {
+    $(document).on("click", "#distance", function(e) {
+        e.preventDefault();
+    // $("#distance").click(function() {
         distval = $("#distance").val();
     });
 
