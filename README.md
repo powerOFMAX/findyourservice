@@ -21,7 +21,7 @@ Also, I set a local host with the “findyourservice.com.devel” domain. Make s
 Then, put this commands:
 
 ```
-cd firstlaravel
+cd findyourservice
 
 cp .env.example .env
 
